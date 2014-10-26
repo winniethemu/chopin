@@ -1,7 +1,11 @@
-from flask import Flask
-from flask import render_template
+from flask import (
+    Flask,
+    jsonify,
+    render_template,
+)
 from instagram.client import InstagramAPI
 
+API_BASE_URL = '/api/v1/'
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -17,6 +21,11 @@ follows = api.user_follows(myself.id)[0]
 
 @app.route('/')
 def index():
+    return render_template('nocturne.html')
+
+
+@app.route(API_BASE_URL + 'locations', methods=['GET'])
+def get_locations():
     response = list()
     posts = list()
 
@@ -29,7 +38,15 @@ def index():
     # latitude = post.location.point.latitude
     # longitude = post.location.point.longitude
 
-    return render_template('nocturne.html')
+    locations = list()
+    for post in posts:
+        locations.append({
+            'latitude': post.location.point.latitude,
+            'longitude': post.location.point.longitude,
+        })
+
+    return jsonify(data=locations)
+
 
 if __name__ == '__main__':
     app.debug = True
