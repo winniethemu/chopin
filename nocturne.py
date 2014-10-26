@@ -34,10 +34,6 @@ def get_locations():
             api.user_recent_media(user_id=account.id, count=10))
     posts = response[0]
 
-    # Way to get the geo info of a post:
-    # latitude = post.location.point.latitude
-    # longitude = post.location.point.longitude
-
     locations = list()
     for post in posts:
         locations.append({
