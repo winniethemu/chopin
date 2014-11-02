@@ -1,14 +1,43 @@
+import os
 from flask import (
     Flask,
     jsonify,
     render_template,
 )
+from flask.ext import assets
 from instagram.client import InstagramAPI
 
 API_BASE_URL = '/api/v1/'
 
 app = Flask(__name__)
 app.config.from_object('config')
+
+env = assets.Environment(app)
+
+# Tell flask-assets where to look for JS and CSS files
+env.load_path = [
+    os.path.join(os.path.dirname(__file__), 'assets'),
+    os.path.join(os.path.dirname(__file__), 'bower_components'),
+]
+
+env.register(
+    'script',
+    assets.Bundle(
+        'jquery/dist/jquery.min.js',
+        'leaflet/dist/leaflet.js',
+        'nocturne.js',
+        output='script.js',
+    ),
+)
+
+env.register(
+    'style',
+    assets.Bundle(
+        'leaflet/dist/leaflet.css',
+        'nocturne.css',
+        output='style.css',
+    ),
+)
 
 api = InstagramAPI(
     client_id=app.config['CLIENT_ID'],

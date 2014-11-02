@@ -4,9 +4,15 @@
     <meta charset="utf-8" />
     <title>Nocturne - What's for dinner?</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    {% assets 'style' %}
+      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+    {% endassets %}
   </head>
 
   <body>
     <div id="map"></div>
+    {% assets 'script' %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
   </body>
 </html>

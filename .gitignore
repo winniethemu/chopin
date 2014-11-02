@@ -1,5 +1,6 @@
-.DS_Store
-venv/
-bower_components/
 *.pyc
+.DS_Store
+bower_components/
 config.py
+static/
+venv/
