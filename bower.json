@@ -1,0 +1,22 @@
+{
+  "name": "nocturne",
+  "version": "0.0.1",
+  "homepage": "https://github.com/yemutex/chopin",
+  "authors": [
+    "Mu Ye <yemutex@gmail.com>"
+  ],
+  "description": "What's for dinner?",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "leaflet": "~0.7.3"
+  }
+}
