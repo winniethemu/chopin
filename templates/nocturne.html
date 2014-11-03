@@ -14,5 +14,10 @@
     {% assets 'script' %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
+
+    <script id="location-details" type="text/x-dot-template">
+      <b>Latitude</b>: <%= it.latitude %>,
+      <b>Longitude</b>: <%= it.longitude %>
+    </script>
   </body>
 </html>

@@ -4,6 +4,7 @@ $(function() {
    */
   var TORONTO = [43.6520, -79.3900];
   var map = L.map('map').setView(TORONTO, 14);
+  var detailsTmpl = doT.template($('#location-details').html());
 
   // The images are just a copy of the ones in bower_components
   // because Flask + Bower is lolz
@@ -25,7 +26,10 @@ $(function() {
         var place = response.data[i];
         var pin = L.marker([place.latitude, place.longitude]).addTo(map);
         pin
-          .bindPopup("<b>Hello world!</b><br>I am a popup.")
+          .bindPopup(detailsTmpl({
+            latitude: place.latitude,
+            longitude: place.longitude
+          }))
           .openPopup();
       }
     }

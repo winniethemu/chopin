@@ -25,6 +25,8 @@ env.register(
     assets.Bundle(
         'jquery/dist/jquery.min.js',
         'leaflet/dist/leaflet.js',
+        'doT/doT.min.js',
+        'dot_settings.js',
         'nocturne.js',
         output='script.js',
     ),
