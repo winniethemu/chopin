@@ -16,8 +16,20 @@
     {% endassets %}
 
     <script id="location-details" type="text/x-dot-template">
-      <b>Latitude</b>: <%= it.latitude %>,
-      <b>Longitude</b>: <%= it.longitude %>
+      <div>
+        <img src="<%= it.image_url %>"></img>
+      <div>
+      <div>
+        <div>
+          <h1><%= it.name %></h1>
+          <p><%= it.like_count %></p>
+        </div>
+        <div>
+          <img></img>
+          <img></img>
+          <img></img>
+        </div>
+      <div>
     </script>
   </body>
 </html>

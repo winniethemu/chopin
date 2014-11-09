@@ -2,7 +2,7 @@ $(function() {
   /*
    * Initialization
    */
-  var TORONTO = [43.6520, -79.3900];
+  var TORONTO = [43.6500, -79.3900];
   var map = L.map('map').setView(TORONTO, 14);
   var detailsTmpl = doT.template($('#location-details').html());
 
@@ -27,10 +27,10 @@ $(function() {
         var pin = L.marker([place.latitude, place.longitude]).addTo(map);
         pin
           .bindPopup(detailsTmpl({
-            latitude: place.latitude,
-            longitude: place.longitude
-          }))
-          .openPopup();
+            image_url: place.image_url,
+            name: place.name,
+            like_count: place.like_count
+          }));
       }
     }
   });
