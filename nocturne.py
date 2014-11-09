@@ -81,10 +81,11 @@ def get_locations():
             6, None, post.location.id)[0]
 
         for recent_post in recent_posts:
-            d['recent_posts'].append({
-                'thumbnail': recent_post.images['thumbnail'].url,
-                'link': recent_post.link,
-            })
+            if recent_post.id != post.id:
+                d['recent_posts'].append({
+                    'image_url': recent_post.images['thumbnail'].url,
+                    'link': recent_post.link,
+                })
 
         locations.append(d)
 
