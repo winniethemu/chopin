@@ -1,5 +1,4 @@
 import os
-import time
 from flask import (
     Flask,
     jsonify,
@@ -78,11 +77,9 @@ def get_locations():
             'recent_posts': [],
         }
 
-        now_in_seconds = int(time.time())
         recent_posts= api.location_recent_media(
-            6, now_in_seconds, post.location.id)[0]
+            6, None, post.location.id)[0]
 
-        recent_posts = list()
         for recent_post in recent_posts:
             d['recent_posts'].append({
                 'thumbnail': recent_post.images['thumbnail'].url,
