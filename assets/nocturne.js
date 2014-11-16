@@ -5,6 +5,15 @@ $(function() {
   var TORONTO = [43.6500, -79.3900];
   var map = L.map('map').setView(TORONTO, 14);
   var detailsTmpl = doT.template($('#location-details').html());
+  var NocturneMarker = L.Marker.extend({
+    options: {
+      image_url: '',
+      like_count: 0,
+      link: '',
+      name: '',
+      recent_posts: []
+    }
+  });
 
   // The images are just a copy of the ones in bower_components
   // because Flask + Bower is lolz
@@ -24,13 +33,13 @@ $(function() {
     success: function(response) {
       for (var i = 0; i < response.data.length; i++) {
         var place = response.data[i];
-        var pin = L.marker([place.latitude, place.longitude]).addTo(map);
-        pin
-          .bindPopup(detailsTmpl({
+        var pin = new NocturneMarker([place.latitude, place.longitude], {
             image_url: place.image_url,
+            like_count: place.like_count,
+            link: place.link,
             name: place.name,
-            like_count: place.like_count
-          }));
+            recent_posts: place.recent_posts
+        }).addTo(map);
       }
     }
   });
