@@ -9,12 +9,10 @@ var NocturneMarker = L.Marker.extend({
 });
 
 $(function() {
-  /*
-   * Initialization
-   */
+  /* Initialization */
   var TORONTO = [43.6500, -79.3900];
   var map = L.map('map').setView(TORONTO, 14);
-  var detailsTmpl = doT.template($('#location-details').html());
+  var detailsTmpl = doT.template($('#details').html());
 
   L.Icon.Default.imagePath = 'static/images';
   L.tileLayer(
@@ -23,9 +21,7 @@ $(function() {
                  'target="_blank">Terms &amp; Feedback</a>'
   }).addTo(map);
 
-  /*
-   * Main API call
-   */
+  /* Main API call */
   $.ajax({
     url: 'api/v1/locations',
     success: function(response) {
@@ -45,9 +41,7 @@ $(function() {
     }
   });
 
-  /*
-   * Helpers
-   */
+  /* Helpers */
   function showPlaceDetails(e) {
     var details = e.target.options;
   }
