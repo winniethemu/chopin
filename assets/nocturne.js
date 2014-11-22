@@ -43,6 +43,7 @@ $(function() {
 
   /* Helpers */
   function showPlaceDetails(e) {
-    var details = e.target.options;
+    var data = e.target.options;
+    $('#details-wrapper').html(detailsTmpl(data));
   }
 });
