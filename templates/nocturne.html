@@ -17,10 +17,10 @@
     {% endassets %}
 
     <script id="details" type="text/x-dot-template">
-      <div>
+      <div class="primary">
         <img src="<%= it.image_url %>"></img>
-      <div>
-      <div>
+      </div>
+      <div class="secondary">
         <div>
           <h1><%= it.name %></h1>
           <p><%= it.like_count %></p>
@@ -30,7 +30,7 @@
             <img src="<%= post.image_url %>" />
           <%~ %>
         </div>
-      <div>
+      </div>
     </script>
   </body>
 </html>

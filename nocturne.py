@@ -36,6 +36,7 @@ env.register(
     'style',
     assets.Bundle(
         'leaflet/dist/leaflet.css',
+        'reset.css',
         'nocturne.css',
         output='style.css',
     ),

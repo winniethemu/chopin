@@ -9,3 +9,31 @@ body {
   bottom: 0;
   width: 100%;
 }
+
+#details-wrapper {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 500px;
+  height: 200px;
+  padding: 10px;
+  background-color: white;
+}
+
+#details-wrapper .primary,
+#details-wrapper .secondary {
+  height: 100%;
+  float: left;
+}
+
+#details-wrapper .primary {
+  width: 40%;
+}
+
+#details-wrapper .secondary {
+  width: 60%;
+}
+
+#details-wrapper .primary img {
+  height: 100%;
+}
