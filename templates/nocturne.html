@@ -21,15 +21,18 @@
         <img src="<%= it.image_url %>"></img>
       </div>
       <div class="secondary">
-        <div>
+        <header>
           <h1><%= it.name %></h1>
           <p><%= it.like_count %></p>
-        </div>
-        <div>
-          <%~ it.recent_posts :post %>
-            <img src="<%= post.image_url %>" />
-          <%~ %>
-        </div>
+        </header>
+        <main>
+          <p>More pictures from here</p>
+          <div class="more-pics">
+            <%~ it.recent_posts :post %>
+              <img src="<%= post.image_url %>" />
+            <%~ %>
+          </div>
+        </main>
       </div>
     </script>
   </body>
