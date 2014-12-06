@@ -5,6 +5,7 @@ from flask import (
     render_template,
 )
 from flask.ext import assets
+from instagram.bind import InstagramAPIError
 from instagram.client import InstagramAPI
 
 API_BASE_URL = '/api/v1/'
@@ -78,15 +79,19 @@ def get_locations():
             'recent_posts': [],
         }
 
-        recent_posts= api.location_recent_media(
-            6, None, post.location.id)[0]
+        try:
+            recent_posts= api.location_recent_media(
+                6, None, post.location.id)[0]
+        except InstagramAPIError:
+            recent_posts = None
 
-        for recent_post in recent_posts:
-            if recent_post.id != post.id:
-                d['recent_posts'].append({
-                    'image_url': recent_post.images['thumbnail'].url,
-                    'link': recent_post.link,
-                })
+        if recent_posts:
+            for recent_post in recent_posts:
+                if recent_post.id != post.id:
+                    d['recent_posts'].append({
+                        'image_url': recent_post.images['thumbnail'].url,
+                        'link': recent_post.link,
+                    })
 
         locations.append(d)
 
