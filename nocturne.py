@@ -70,6 +70,8 @@ def get_locations():
     locations = list()
     for post in posts:
         d = {
+            'author': post.user.username,
+            'caption': post.caption.text,
             'image_url': post.images['low_resolution'].url,
             'latitude': post.location.point.latitude,
             'like_count': post.like_count,
@@ -81,7 +83,7 @@ def get_locations():
 
         try:
             recent_posts= api.location_recent_media(
-                6, None, post.location.id)[0]
+                count=3, max_id=None, location_id=post.location.id)[0]
         except InstagramAPIError:
             recent_posts = None
 
