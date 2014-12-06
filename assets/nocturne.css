@@ -11,7 +11,7 @@
   right: 10px;
   width: 500px;
   height: 200px;
-  font-family: 'Myriad Pro', 'Helvetica Neue', sans-serif;
+  font-family: 'Courier', monospace;
   padding: 10px;
   background-color: white;
 }
@@ -36,14 +36,29 @@
 }
 
 #details-wrapper .secondary header {
+  font-weight: bold;
+  padding-bottom: 10px;
 }
 
 #details-wrapper .secondary main {
   overflow: hidden;
 }
 
-#details-wrapper .secondary .more-pics img {
+#details-wrapper .secondary .desc {
+  padding-bottom: 10px;
+}
+
+#details-wrapper .secondary main p {
+  font-size: 13px;
+  line-height: 1.2em;
+}
+
+#details-wrapper .secondary main p.caption {
+  padding-top: 5px;
+}
+
+#details-wrapper .secondary main img {
   float: left;
   width: 70px;
-  padding: 2px;
+  padding: 0 2px 2px 0;
 }
