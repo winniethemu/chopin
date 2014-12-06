@@ -23,10 +23,11 @@
       <div class="secondary">
         <header>
           <h1><%= it.name %></h1>
-          <p><%= it.like_count %></p>
+          <p><%= it.caption %></p>
         </header>
         <main>
-          <p>Recent posts from here:</p>
+          <p><%= it.like_count %></p>
+          <p>Recent posts taken here:</p>
           <main class="more-pics">
             <%~ it.recent_posts :post %>
               <img src="<%= post.image_url %>" />

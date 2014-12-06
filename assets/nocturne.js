@@ -26,14 +26,17 @@ $(function() {
     url: 'api/v1/locations',
     success: function(response) {
       for (var i = 0; i < response.data.length; i++) {
-        var place = response.data[i];
+        var locationInfo = response.data[i];
 
-        var pin = new NocturneMarker([place.latitude, place.longitude], {
-            image_url: place.image_url,
-            like_count: place.like_count,
-            link: place.link,
-            name: place.name,
-            recent_posts: place.recent_posts
+        var pin = new NocturneMarker(
+            [locationInfo.latitude, locationInfo.longitude], {
+          author: locationInfo.author,
+          caption: locationInfo.caption,
+          image_url: locationInfo.image_url,
+          like_count: locationInfo.like_count,
+          link: locationInfo.link,
+          name: locationInfo.name,
+          recent_posts: locationInfo.recent_posts
         }).addTo(map);
 
         pin.on('click', showPlaceDetails);
