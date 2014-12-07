@@ -8,29 +8,7 @@ var NocturneMarker = L.Marker.extend({
   }
 });
 
-var geoSuccess = function(position) {
-  console.log(position.coords.latitude);
-  console.log(position.coords.longitude);
-};
-
-var geoError = function(position) {
-  console.log('Error occurred. Error code: ' + error.code);
-  // error.code can be:
-  //   0: unknown error
-  //   1: permission denied
-  //   2: position unavailable (error response from location provider)
-  //   3: timed out
-};
-
-var showPlaceDetails = function(e) {
-  var data = e.target.options;
-  $('#details-wrapper').html(detailsTmpl(data));
-}
-
 $(function() {
-  /*
-   * Init
-   */
   var TORONTO = [43.6500, -79.3900];
   var map = L.map('map').setView(TORONTO, 14);
   var detailsTmpl = doT.template($('#details').html());
@@ -51,9 +29,6 @@ $(function() {
     navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
   }
 
-  /*
-   * Main API call
-   */
   $.ajax({
     url: 'api/v1/locations',
     success: function(response) {
@@ -75,4 +50,23 @@ $(function() {
       }
     }
   });
+
+  function geoSuccess(position) {
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
+  };
+
+  function geoError(position) {
+    console.log('Error occurred. Error code: ' + error.code);
+    // error.code can be:
+    //   0: unknown error
+    //   1: permission denied
+    //   2: position unavailable (error response from location provider)
+    //   3: timed out
+  };
+
+  function showPlaceDetails(e) {
+    var data = e.target.options;
+    $('#details-wrapper').html(detailsTmpl(data));
+  }
 });
