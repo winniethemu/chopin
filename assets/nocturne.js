@@ -9,10 +9,17 @@ var NocturneMarker = L.Marker.extend({
 });
 
 $(function() {
-  /* Initialization */
+  /*
+   * Init
+   */
   var TORONTO = [43.6500, -79.3900];
   var map = L.map('map').setView(TORONTO, 14);
   var detailsTmpl = doT.template($('#details').html());
+  var geoOptions = {
+    // enableHighAccuracy: true,
+    maxAge: 5 * 60 * 1000,
+    timeout: 10 * 1000
+  };
 
   L.Icon.Default.imagePath = 'static/images';
   L.tileLayer(
@@ -21,7 +28,13 @@ $(function() {
                  'target="_blank">Terms &amp; Feedback</a>'
   }).addTo(map);
 
-  /* Main API call */
+  if (navigator.geolocation) {
+    getUserCurrentLocation();
+  }
+
+  /*
+   * Main API call
+   */
   $.ajax({
     url: 'api/v1/locations',
     success: function(response) {
@@ -44,7 +57,27 @@ $(function() {
     }
   });
 
-  /* Helpers */
+  /*
+   * Helpers
+   */
+  function getUserCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+  }
+
+  function geoSuccess(position) {
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
+  };
+
+  function geoError(position) {
+    console.log('Error occurred. Error code: ' + error.code);
+    // error.code can be:
+    //   0: unknown error
+    //   1: permission denied
+    //   2: position unavailable (error response from location provider)
+    //   3: timed out
+  };
+
   function showPlaceDetails(e) {
     var data = e.target.options;
     $('#details-wrapper').html(detailsTmpl(data));
