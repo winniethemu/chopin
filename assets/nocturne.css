@@ -37,15 +37,12 @@
 #details-wrapper .secondary {
   width: 56%;
   padding-left: 20px;
+  overflow: scroll;
 }
 
 #details-wrapper .secondary header {
   font-weight: bold;
   padding-bottom: 10px;
-}
-
-#details-wrapper .secondary main {
-  overflow: hidden;
 }
 
 #details-wrapper .secondary .desc {
