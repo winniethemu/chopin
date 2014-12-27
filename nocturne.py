@@ -10,7 +10,7 @@ from instagram.client import InstagramAPI
 
 API_BASE_URL = '/api/v1/'
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 app.config.from_object('config')
 
 env = assets.Environment(app)
@@ -25,6 +25,7 @@ env.register(
     'script',
     assets.Bundle(
         'jquery/dist/jquery.min.js',
+        'jquery-ui/jquery-ui.min.js',
         'leaflet/dist/leaflet.js',
         'doT/doT.min.js',
         'dot_settings.js',

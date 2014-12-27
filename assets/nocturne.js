@@ -18,7 +18,7 @@ $(function() {
     timeout: 10 * 1000
   };
 
-  L.Icon.Default.imagePath = 'static/images';
+  L.Icon.Default.imagePath = 'images';
   L.tileLayer(
     'https://{s}.tiles.mapbox.com/v3/foodmaap.d30c6747/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" ' +
@@ -69,4 +69,20 @@ $(function() {
     var data = e.target.options;
     $('#details-wrapper').html(detailsTmpl(data));
   }
+
+  $('#btn-shrink').on('click', function() {
+    $('#details-wrapper')
+      .animate({ width: '-=500', height: '-=200' }, 200)
+      .css('padding', 0);
+    $(this).fadeOut();
+    $('#btn-expand').fadeIn();
+  });
+
+  $('#btn-expand').on('click', function() {
+    $('#details-wrapper')
+      .animate({ width: '+=500', height: '+=200' }, 200)
+      .css('padding', '10px');
+    $(this).fadeOut();
+    $('#btn-shrink').fadeIn();
+  });
 });
