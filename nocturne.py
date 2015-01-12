@@ -25,7 +25,6 @@ env.register(
     'script',
     assets.Bundle(
         'jquery/dist/jquery.min.js',
-        'jquery-ui/jquery-ui.min.js',
         'leaflet/dist/leaflet.js',
         'doT/doT.min.js',
         'dot_settings.js',
@@ -37,6 +36,7 @@ env.register(
 env.register(
     'style',
     assets.Bundle(
+        'font-awesome/css/font-awesome.min.css',
         'leaflet/dist/leaflet.css',
         'reset.css',
         'nocturne.css',
