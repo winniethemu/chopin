@@ -12,6 +12,8 @@ $(function() {
   var TORONTO = [43.6500, -79.3900];
   var map = L.map("map").setView(TORONTO, 14);
   var detailsTmpl = doT.template($("#details").html());
+  var latitudes = [];
+  var longitudes = [];
   var geoOptions = {
     // enableHighAccuracy: true,
     maxAge: 5 * 60 * 1000,
@@ -24,10 +26,6 @@ $(function() {
     attribution: '<a href="http://www.mapbox.com/about/maps/" ' +
                  'target="_blank">Terms &amp; Feedback</a>'
   }).addTo(map);
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-  }
 
   $.ajax({
     url: "api/v1/locations",
@@ -46,8 +44,24 @@ $(function() {
           recent_posts: locationInfo.recent_posts
         }).addTo(map);
 
-        pin.on("click", showPlaceDetails);
+        latitudes.push(locationInfo.latitude);
+        longitudes.push(locationInfo.longitudes);
+        pin.on("click", showLocationDetails);
       }
+
+      showOutOfBoundsTips();
+    }
+  });
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+  }
+
+  $(document).on("click", function(e) {
+    var $el = $(e.target);
+
+    if ($el.closest("#details-wrapper").length < 1) {
+      $("#details-wrapper").fadeOut(200);
     }
   });
 
@@ -65,17 +79,57 @@ $(function() {
     //   3: timed out
   };
 
-  function showPlaceDetails(e) {
+  function showLocationDetails(e) {
     var data = e.target.options;
 
     $("#details-wrapper").html(detailsTmpl(data)).fadeIn();
   }
 
-  $(document).on("click", function(e) {
-    var $el = $(e.target);
+  function outOfBoundsCount(bounds, direction) {
+    var bound;
+    var count = 0;
 
-    if ($el.closest("#details-wrapper").length < 1) {
-      $("#details-wrapper").fadeOut(200);
+    if (direction === "NORTH") {
+      bound = bounds.getNorth();
+      for (var i = 0; i < latitudes.length; i++) {
+        if (bound < latitudes[i]) {
+          count++;
+        }
+      }
+    } else if (direction === "EAST") {
+      bound = bounds.getEast();
+      for (var j = 0; j < latitudes.length; j++) {
+        if (bound < longitudes[j]) {
+          count++;
+        }
+      }
+    } else if (direction === "SOUTH") {
+      bound = bounds.getSouth();
+      for (var k = 0; k < latitudes.length; k++) {
+        if (bound > latitudes[k]) {
+          count++;
+        }
+      }
+    } else {
+      // direction === "WEST"
+      bound = bounds.getWest();
+      for (var l = 0; l < latitudes.length; l++) {
+        if (bound > longitudes[l]) {
+          count++;
+        }
+      }
     }
-  });
+    return count;
+  }
+
+  function showOutOfBoundsTips() {
+    var directions = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
+    var bounds = map.getBounds();
+
+    for (var i = 0; i < directions.length; i++) {
+      var count = outOfBoundsCount(bounds, directions[i]);
+      console.log(count);
+      // showTip(count, directions[i]);
+    }
+  }
 });
