@@ -122,14 +122,26 @@ $(function() {
     return count;
   }
 
+  function showTip(count, direction) {
+    if (direction === "NORTH") {
+      $("#tip-north .tip-count").html(count);
+      $("#tip-north").show();
+    } else if (direction === "EAST") {
+    } else if (direction === "SOUTH") {
+    } else {
+      // direction === "WEST"
+    }
+  }
+
   function showOutOfBoundsTips() {
     var directions = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
     var bounds = map.getBounds();
 
     for (var i = 0; i < directions.length; i++) {
       var count = outOfBoundsCount(bounds, directions[i]);
-      console.log(count);
-      // showTip(count, directions[i]);
+      if (count) {
+        showTip(count, directions[i]);
+      }
     }
   }
 });
