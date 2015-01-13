@@ -11,7 +11,7 @@
 
   <body>
     <div id="map"></div>
-    <div id="tip-north" class="tip-wrapper">
+    <div id="tip-north" class="tip-wrapper overlay">
       <div>
         <span class="tip-count"></span>
         <i class="fa fa-anchor"></i>
@@ -20,10 +20,10 @@
         <i class="fa fa-caret-up"></i>
       </div>
     </div>
-    <div id="tip-east" class="tip-wrapper"></div>
-    <div id="tip-south" class="tip-wrapper"></div>
-    <div id="tip-west" class="tip-wrapper"></div>
-    <div id="details-wrapper"></div>
+    <div id="tip-east" class="tip-wrapper overlay"></div>
+    <div id="tip-south" class="tip-wrapper overlay"></div>
+    <div id="tip-west" class="tip-wrapper overlay"></div>
+    <div id="details-wrapper" class="overlay"></div>
     {% assets 'script' %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
