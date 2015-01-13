@@ -127,9 +127,15 @@ $(function() {
       $("#tip-north .tip-count").html(count);
       $("#tip-north").show();
     } else if (direction === "EAST") {
+      $("#tip-east .tip-count").html(count);
+      $("#tip-east").show();
     } else if (direction === "SOUTH") {
+      $("#tip-south .tip-count").html(count);
+      $("#tip-south").show();
     } else {
       // direction === "WEST"
+      $("#tip-west .tip-count").html(count);
+      $("#tip-west").show();
     }
   }
 
