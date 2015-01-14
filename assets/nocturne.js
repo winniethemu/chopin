@@ -87,70 +87,64 @@ $(function() {
     $("#details-wrapper").html(detailsTmpl(data)).fadeIn();
   }
 
-  function outOfBoundsCount(bounds, direction) {
-    var bound;
-    var count = 0;
+  function outOfBoundsCount(bounds) {
+    var count = { north: 0, east: 0, south: 0, west: 0 };
+    var northBound = bounds.getNorth();
+    var eastBound = bounds.getEast();
+    var southBound = bounds.getSouth();
+    var westBound = bounds.getWest();
 
-    if (direction === "NORTH") {
-      bound = bounds.getNorth();
-      for (var i = 0; i < latitudes.length; i++) {
-        if (bound < latitudes[i]) {
-          count++;
-        }
+    for (var i = 0; i < latitudes.length; i++) {
+      if (northBound < latitudes[i]) {
+        count.north++;
       }
-    } else if (direction === "EAST") {
-      bound = bounds.getEast();
-      for (var j = 0; j < longitudes.length; j++) {
-        if (bound < longitudes[j]) {
-          count++;
-        }
-      }
-    } else if (direction === "SOUTH") {
-      bound = bounds.getSouth();
-      for (var k = 0; k < latitudes.length; k++) {
-        if (bound > latitudes[k]) {
-          count++;
-        }
-      }
-    } else {
-      // direction === "WEST"
-      bound = bounds.getWest();
-      for (var l = 0; l < longitudes.length; l++) {
-        if (bound > longitudes[l]) {
-          count++;
-        }
+      if (southBound > latitudes[i]) {
+        count.south++;
       }
     }
+
+    for (var j = 0; j < longitudes.length; j++) {
+      if (eastBound < longitudes[j]) {
+        count.east++;
+      }
+      if (westBound > longitudes[j]) {
+        count.west++;
+      }
+    }
+
     return count;
   }
 
-  function showTip(count, direction) {
-    if (direction === "NORTH") {
-      $("#tip-north .tip-count").html(count);
+  function showOutOfBoundsTips() {
+    var bounds = map.getBounds();
+    var count = outOfBoundsCount(bounds);
+
+    if (count.north) {
+      $("#tip-north .tip-count").html(count.north);
       $("#tip-north").fadeIn();
-    } else if (direction === "EAST") {
-      $("#tip-east .tip-count").html(count);
+    } else {
+      $("#tip-north").fadeOut();
+    }
+
+    if (count.east) {
+      $("#tip-east .tip-count").html(count.east);
       $("#tip-east").fadeIn();
-    } else if (direction === "SOUTH") {
-      $("#tip-south .tip-count").html(count);
+    } else {
+      $("#tip-east").fadeOut();
+    }
+
+    if (count.south) {
+      $("#tip-south .tip-count").html(count.south);
       $("#tip-south").fadeIn();
     } else {
-      // direction === "WEST"
-      $("#tip-west .tip-count").html(count);
-      $("#tip-west").fadeIn();
+      $("#tip-south").fadeOut();
     }
-  }
 
-  function showOutOfBoundsTips() {
-    var directions = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
-    var bounds = map.getBounds();
-
-    for (var i = 0; i < directions.length; i++) {
-      var count = outOfBoundsCount(bounds, directions[i]);
-
-      if (count) {
-        showTip(count, directions[i]);
-      }
+    if (count.west) {
+      $("#tip-west .tip-count").html(count.west);
+      $("#tip-west").fadeIn();
+    } else {
+      $("#tip-west").fadeOut();
     }
   }
 });
