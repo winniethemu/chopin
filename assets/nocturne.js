@@ -45,7 +45,7 @@ $(function() {
         }).addTo(map);
 
         latitudes.push(locationInfo.latitude);
-        longitudes.push(locationInfo.longitudes);
+        longitudes.push(locationInfo.longitude);
         pin.on("click", showLocationDetails);
       }
 
@@ -64,6 +64,8 @@ $(function() {
       $("#details-wrapper").fadeOut(200);
     }
   });
+
+  map.on("moveend", showOutOfBoundsTips);
 
   function geoSuccess(position) {
     console.log(position.coords.latitude);
@@ -98,7 +100,7 @@ $(function() {
       }
     } else if (direction === "EAST") {
       bound = bounds.getEast();
-      for (var j = 0; j < latitudes.length; j++) {
+      for (var j = 0; j < longitudes.length; j++) {
         if (bound < longitudes[j]) {
           count++;
         }
@@ -113,7 +115,7 @@ $(function() {
     } else {
       // direction === "WEST"
       bound = bounds.getWest();
-      for (var l = 0; l < latitudes.length; l++) {
+      for (var l = 0; l < longitudes.length; l++) {
         if (bound > longitudes[l]) {
           count++;
         }
@@ -125,17 +127,17 @@ $(function() {
   function showTip(count, direction) {
     if (direction === "NORTH") {
       $("#tip-north .tip-count").html(count);
-      $("#tip-north").show();
+      $("#tip-north").fadeIn();
     } else if (direction === "EAST") {
       $("#tip-east .tip-count").html(count);
-      $("#tip-east").show();
+      $("#tip-east").fadeIn();
     } else if (direction === "SOUTH") {
       $("#tip-south .tip-count").html(count);
-      $("#tip-south").show();
+      $("#tip-south").fadeIn();
     } else {
       // direction === "WEST"
       $("#tip-west .tip-count").html(count);
-      $("#tip-west").show();
+      $("#tip-west").fadeIn();
     }
   }
 
@@ -145,6 +147,7 @@ $(function() {
 
     for (var i = 0; i < directions.length; i++) {
       var count = outOfBoundsCount(bounds, directions[i]);
+
       if (count) {
         showTip(count, directions[i]);
       }
