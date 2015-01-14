@@ -11,7 +11,18 @@ from instagram.client import InstagramAPI
 API_BASE_URL = '/api/v1/'
 
 app = Flask(__name__, static_folder='static', static_url_path='')
-app.config.from_object('config')
+
+# Import Instagram config variables depending on environment
+try:
+    app.config.from_object('config')
+except ImportError:
+    # Production
+    CLIENT_ID = os.environ.get('CLIENT_ID')
+    CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+else:
+    # Local
+    CLIENT_ID = app.config['CLIENT_ID']
+    CLIENT_SECRET = app.config['CLIENT_SECRET']
 
 env = assets.Environment(app)
 
@@ -45,8 +56,8 @@ env.register(
 )
 
 api = InstagramAPI(
-    client_id=app.config['CLIENT_ID'],
-    client_secret=app.config['CLIENT_SECRET'],
+    client_id=CLIENT_ID,
+    client_secret=CLIENT_SECRET,
 )
 
 myself = api.user_search('foodmaap')[0]
