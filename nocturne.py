@@ -1,4 +1,6 @@
 import os
+import sys
+import logging
 from flask import (
     Flask,
     jsonify,
@@ -11,6 +13,9 @@ from instagram.client import InstagramAPI
 API_BASE_URL = '/api/v1/'
 
 app = Flask(__name__, static_folder='static', static_url_path='')
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 # Import Instagram config variables depending on environment
 try:
