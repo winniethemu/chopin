@@ -1,6 +1,6 @@
 *.pyc
 .DS_Store
-.webassets-cache
+.webassets-cache/
 config.py
 nocturne.tm2/
 venv/
