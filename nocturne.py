@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+
 from flask import (
     Flask,
     jsonify,
@@ -9,6 +10,9 @@ from flask import (
 from flask.ext import assets
 from instagram.bind import InstagramAPIError
 from instagram.client import InstagramAPI
+
+import data
+
 
 API_BASE_URL = '/api/v1/'
 
@@ -65,8 +69,22 @@ api = InstagramAPI(
     client_secret=CLIENT_SECRET,
 )
 
-myself = api.user_search('foodmaap')[0]
-follows = api.user_follows(myself.id)[0]
+
+def current_city():
+    return 'toronto'
+
+
+def get_accounts(account_ids):
+    accounts = []
+
+    for account_id in account_ids:
+        account = api.user_search(account_id)[0]
+        accounts.append(account)
+    return accounts
+
+
+account_ids = data.ACCOUNTS.get(current_city())
+accounts = get_accounts(account_ids)
 
 
 @app.route('/')
@@ -79,7 +97,7 @@ def get_locations():
     response = list()
     posts = list()
 
-    for account in follows:
+    for account in accounts:
         response += list(
             api.user_recent_media(user_id=account.id, count=10))
     posts = response[0]
