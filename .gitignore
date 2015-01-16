@@ -3,4 +3,6 @@
 .webassets-cache/
 config.py
 nocturne.tm2/
+static/script.js
+static/style.css
 venv/
