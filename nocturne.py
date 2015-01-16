@@ -1,11 +1,14 @@
+import json
+import logging
 import os
 import sys
-import logging
+import urllib
 
 from flask import (
     Flask,
     jsonify,
     render_template,
+    request,
 )
 from flask.ext import assets
 from instagram.bind import InstagramAPIError
@@ -69,26 +72,26 @@ api = InstagramAPI(
     client_secret=CLIENT_SECRET,
 )
 
-
-def current_city():
-    return 'toronto'
-
-
-def get_accounts(account_ids):
-    accounts = []
-
-    for account_id in account_ids:
-        account = api.user_search(account_id)[0]
-        accounts.append(account)
-    return accounts
-
-
-account_ids = data.ACCOUNTS.get(current_city())
-accounts = get_accounts(account_ids)
+accounts = []
 
 
 @app.route('/')
 def index():
+    def get_city(ip_address):
+        return 'toronto'
+
+    def get_accounts(account_ids):
+        accounts = []
+        for account_id in account_ids:
+            account = api.user_search(account_id)[0]
+            accounts.append(account)
+        return accounts
+
+    global accounts
+    ip_address = request.remote_addr
+    city = get_city(ip_address)
+    account_ids = data.ACCOUNTS.get(city)
+    accounts = get_accounts(account_ids)
     return render_template('nocturne.html')
 
 
@@ -100,7 +103,8 @@ def get_locations():
     for account in accounts:
         response += list(
             api.user_recent_media(user_id=account.id, count=10))
-    posts = response[0]
+    if response:
+        posts = response[0]
 
     locations = list()
     for post in posts:
