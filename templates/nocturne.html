@@ -54,7 +54,7 @@
 
     <script id="details" type="text/x-dot-template">
       <div class="primary">
-        <img src="<%= it.image_url %>"></img>
+        <a href="<%= it.link %>" target="_blank"><img src="<%= it.image_url %>"></img></a>
       </div>
       <div class="secondary">
         <header>
@@ -62,12 +62,12 @@
         </header>
         <main>
           <div class="desc">
-            <p><%= it.like_count %></p>
+            <p class="like-count"><i class="fa fa-heart"></i><%= it.like_count %></p>
             <p class="caption"><%= it.caption %></p>
           </div>
-          <div>
+          <div class="recent">
             <%~ it.recent_posts :post %>
-              <img src="<%= post.image_url %>" />
+              <a href="<%= post.link %>" target="_blank"><img src="<%= post.image_url %>" /></a>
             <%~ %>
           </div>
         </main>

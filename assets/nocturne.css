@@ -76,6 +76,7 @@
   width: 500px;
   height: 200px;
   font-family: 'Courier', monospace;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 #details-wrapper .primary,
@@ -108,7 +109,17 @@
 }
 
 #details-wrapper .secondary .desc {
+  border-bottom: 1px dotted #E2E2E2;
   padding-bottom: 10px;
+  margin-right: 20px;
+}
+
+#details-wrapper .secondary .desc .like-count i {
+  padding-right: 2px;
+}
+
+#details-wrapper .secondary .recent {
+  padding-top: 12px;
 }
 
 #details-wrapper .secondary main p {
