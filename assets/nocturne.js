@@ -9,8 +9,9 @@ var NocturneMarker = L.Marker.extend({
 });
 
 $(function() {
-  var TORONTO = [43.6500, -79.3900];
-  var map = L.map("map").setView(TORONTO, 14);
+  var $map = $("#map");
+  var currentCity = [$map.data("latitude"), $map.data("longitude")];
+  var map = L.map("map").setView(currentCity, 14);
   var detailsTmpl = doT.template($("#details").html());
   var latitudes = [];
   var longitudes = [];

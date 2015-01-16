@@ -84,11 +84,16 @@ def index():
         response = urllib.urlopen(url)
         data = json.loads(response.read())
         city = data.get('city')
-        latitude = data.get('lat')
-        longitude = data.get('lng')
-        if city and latitude and longitude:
-            return city.split(',')[0].lower()
-        return 'toronto'
+        lat = data.get('lat')
+        lng = data.get('lng')
+        if city and lat and lng:
+            city = city.split(',')[0].lower()
+            return {'city': city, 'latitude': lat, 'longitude': lng}
+        return {
+            'city': 'toronto',
+            'latitude': '43.65',
+            'longitude': '-79.3833',
+        }
 
     def get_accounts(account_ids):
         accounts = []
@@ -99,10 +104,11 @@ def index():
 
     global accounts
     ip_address = request.remote_addr
-    city = get_city(ip_address)
-    account_ids = data.ACCOUNTS.get(city)
+    city_info = get_city(ip_address)
+    account_ids = data.ACCOUNTS.get(city_info['city'])
     accounts = get_accounts(account_ids)
-    return render_template('nocturne.html')
+    return render_template('nocturne.html',
+        latitude=city_info['latitude'], longitude=city_info['longitude'])
 
 
 @app.route(API_BASE_URL + 'locations', methods=['GET'])
