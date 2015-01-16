@@ -78,6 +78,16 @@ accounts = []
 @app.route('/')
 def index():
     def get_city(ip_address):
+        # Use hostip.info as our IP lookup API
+        url = 'http://api.hostip.info/get_json.php?position=true&ip={}'.format(
+            ip_address)
+        response = urllib.urlopen(url)
+        data = json.loads(response.read())
+        city = data.get('city')
+        latitude = data.get('lat')
+        longitude = data.get('lng')
+        if city and latitude and longitude:
+            return city.split(',')[0].lower()
         return 'toronto'
 
     def get_accounts(account_ids):
