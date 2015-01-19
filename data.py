@@ -1,3 +1,3 @@
 ACCOUNTS = {
-    'toronto': ('to_finest', 'tastetoronto'),
+    'toronto': ('to_finest', 'tastetoronto', 'tofoodies'),
 }

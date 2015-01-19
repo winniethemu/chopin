@@ -143,7 +143,7 @@ def get_locations():
         try:
             recent_posts= api.location_recent_media(
                 count=3, max_id=None, location_id=post.location.id)[0]
-        except InstagramAPIError:
+        except Exception:
             recent_posts = None
 
         if recent_posts:
