@@ -23,7 +23,7 @@ $(function() {
 
   L.Icon.Default.imagePath = "images";
   L.tileLayer(
-    'https://{s}.tiles.mapbox.com/v3/foodmaap.d30c6747/{z}/{x}/{y}.png', {
+    'https://{s}.tiles.mapbox.com/v3/foodmaap.l0153oc9/{z}/{x}/{y}.png', {
     attribution: '<a href="http://www.mapbox.com/about/maps/" ' +
                  'target="_blank">Terms &amp; Feedback</a>'
   }).addTo(map);

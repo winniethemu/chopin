@@ -98,8 +98,12 @@ def index():
     def get_accounts(account_ids):
         accounts = []
         for account_id in account_ids:
-            account = api.user_search(account_id)[0]
-            accounts.append(account)
+            try:
+                account = api.user_search(account_id)[0]
+            except:
+                pass
+            else:
+                accounts.append(account)
         return accounts
 
     global accounts
@@ -118,9 +122,9 @@ def get_locations():
 
     for account in accounts:
         response += list(
-            api.user_recent_media(user_id=account.id, count=10))
+            api.user_recent_media(user_id=account.id, count=10))[0]
     if response:
-        posts = response[0]
+        posts = response
 
     locations = list()
     for post in posts:
