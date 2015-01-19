@@ -68,6 +68,50 @@
   left: 10px;
 }
 
+#logo-wrapper {
+  color: #444;
+  position: fixed;
+  left: 10px;
+  bottom: 30px;
+  font-family: 'Courier', monospace;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+#logo-wrapper h1 {
+  font-size: 36px;
+}
+
+#logo-wrapper p {
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
+#meta-info {
+  color: #444;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-size: 11px;
+  padding: 0 5px;
+  line-height: 1.5em;
+}
+
+#meta-info p, #meta-info a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+#meta-info a {
+  color: rgb(0, 120, 168);
+}
+
+#meta-info a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 #details-wrapper {
   display: none;
   position: fixed;
