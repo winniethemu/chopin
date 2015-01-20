@@ -79,16 +79,13 @@ accounts = []
 def index():
     def get_city(ip_address):
         # Use hostip.info as our IP lookup API
-        # url = 'http://api.hostip.info/get_json.php?position=true&ip={}'.format(
-            # ip_address)
+        url = 'http://api.hostip.info/get_json.php?position=true&ip={}'.format(
+            ip_address)
 
         # NYC
         # url = 'http://api.hostip.info/get_json.php?position=true&ip=67.221.255.55'
 
         # Richmond Hill
-        # url = 'http://api.hostip.info/get_json.php?position=true&ip=99.247.0.170'
-
-        # SF
         # url = 'http://api.hostip.info/get_json.php?position=true&ip=99.247.0.170'
 
         response = urllib.urlopen(url)
@@ -101,11 +98,11 @@ def index():
             return city
         return 'toronto'
 
-    def get_accounts(account_ids):
+    def get_accounts(handles):
         accounts = []
-        for account_id in account_ids:
+        for handle in handles:
             try:
-                account = api.user_search(account_id)[0]
+                account = api.user_search(handle)[0]
             except:
                 pass
             else:
@@ -115,11 +112,18 @@ def index():
     global accounts
     ip_address = request.remote_addr
     city = get_city(ip_address)
-    account_ids = const.ACCOUNTS.get(city) or const.ACCOUNTS.get('toronto')
-    accounts = get_accounts(account_ids)
+    account_handles = const.ACCOUNTS.get(city)
+    if account_handles:
+        latitude = const.COORDS[city]['latitude']
+        longitude = const.COORDS[city]['longitude']
+    else:
+        # Default to Toronto
+        account_handles = const.ACCOUNTS.get('toronto')
+        latitude = const.COORDS['toronto']['latitude']
+        longitude = const.COORDS['toronto']['longitude']
+    accounts = get_accounts(account_handles)
     return render_template('nocturne.html',
-        latitude=const.COORDS[city]['latitude'],
-        longitude=const.COORDS[city]['longitude'])
+        latitude=latitude, longitude=longitude)
 
 
 @app.route(API_BASE_URL + 'locations', methods=['GET'])
