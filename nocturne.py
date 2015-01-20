@@ -81,13 +81,14 @@ def index():
         # Use hostip.info as our IP lookup API
         url = 'http://api.hostip.info/get_json.php?position=true&ip={}'.format(
             ip_address)
+        # url = 'http://api.hostip.info/get_json.php?position=true&ip=67.221.255.55'
         response = urllib.urlopen(url)
         data = json.loads(response.read())
         city = data.get('city')
         lat = data.get('lat')
         lng = data.get('lng')
         if city and lat and lng:
-            city = city.split(',')[0].lower()
+            city = city.split(',')[0].replace(' ', '_').lower()
             return {'city': city, 'latitude': lat, 'longitude': lng}
         return {
             'city': 'toronto',
@@ -109,7 +110,8 @@ def index():
     global accounts
     ip_address = request.remote_addr
     city_info = get_city(ip_address)
-    account_ids = data.ACCOUNTS.get(city_info['city'])
+    account_ids = data.ACCOUNTS.get(
+        city_info['city']) or data.ACCOUNTS.get('toronto')
     accounts = get_accounts(account_ids)
     return render_template('nocturne.html',
         latitude=city_info['latitude'], longitude=city_info['longitude'])
@@ -128,17 +130,20 @@ def get_locations():
 
     locations = list()
     for post in posts:
-        d = {
-            'author': post.user.username,
-            'caption': post.caption.text,
-            'image_url': post.images['low_resolution'].url,
-            'latitude': post.location.point.latitude,
-            'like_count': post.like_count,
-            'link': post.link,
-            'longitude': post.location.point.longitude,
-            'name': post.location.name,
-            'recent_posts': [],
-        }
+        try:
+            d = {
+                'author': post.user.username,
+                'caption': post.caption.text,
+                'image_url': post.images['low_resolution'].url,
+                'latitude': post.location.point.latitude,
+                'like_count': post.like_count,
+                'link': post.link,
+                'longitude': post.location.point.longitude,
+                'name': post.location.name,
+                'recent_posts': [],
+            }
+        except AttributeError:
+            continue
 
         try:
             recent_posts= api.location_recent_media(

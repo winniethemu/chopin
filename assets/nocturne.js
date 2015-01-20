@@ -54,9 +54,9 @@ $(function() {
     }
   });
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-  }
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+  // }
 
   $(document).on("click", function(e) {
     var $el = $(e.target);
