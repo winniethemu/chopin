@@ -55,7 +55,9 @@ $(function() {
   });
 
   // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+  //   navigator
+  //    .geolocation
+  //    .getCurrentPosition(geoSuccess, geoError, geoOptions);
   // }
 
   $(document).on("click", function(e) {
