@@ -11,6 +11,7 @@ var NocturneMarker = L.Marker.extend({
 $(function() {
   var $map = $("#map");
   var currentCity = [$map.data("latitude"), $map.data("longitude")];
+  var cityName = $map.data('city');
   var map = L.map("map").setView(currentCity, 14);
   var detailsTmpl = doT.template($("#details").html());
   var latitudes = [];
@@ -30,6 +31,7 @@ $(function() {
 
   $.ajax({
     url: "api/v1/locations",
+    data: 'city=' + cityName,
     success: function(response) {
       for (var i = 0; i < response.data.length; i++) {
         var locationInfo = response.data[i];
@@ -60,7 +62,6 @@ $(function() {
   //    .getCurrentPosition(geoSuccess, geoError, geoOptions);
   // }
 
-  var cityName = $map.data('city');
   $("#city-selector option").filter(function() {
     return $(this).val() === cityName;
   }).prop('selected', true);

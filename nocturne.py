@@ -72,8 +72,6 @@ api = InstagramAPI(
     client_secret=CLIENT_SECRET,
 )
 
-accounts = []
-
 
 @app.route('/')
 def index():
@@ -98,7 +96,24 @@ def index():
             return city
         return 'toronto'
 
+    ip_address = request.remote_addr
+    home = get_city(ip_address)
+    if const.ACCOUNTS.get(home):
+        latitude = const.COORDS[home]['latitude']
+        longitude = const.COORDS[home]['longitude']
+    else:
+        # Default to Toronto
+        latitude = const.COORDS['toronto']['latitude']
+        longitude = const.COORDS['toronto']['longitude']
+    return render_template('nocturne.html',
+        city=home, latitude=latitude, longitude=longitude)
+
+
+@app.route(API_BASE_URL + 'locations', methods=['GET'])
+def get_locations():
     def get_accounts(handles):
+        if not handles:
+            return []
         accounts = []
         for handle in handles:
             try:
@@ -109,25 +124,8 @@ def index():
                 accounts.append(account)
         return accounts
 
-    global accounts
-    ip_address = request.remote_addr
-    city = get_city(ip_address)
-    account_handles = const.ACCOUNTS.get(city)
-    if account_handles:
-        latitude = const.COORDS[city]['latitude']
-        longitude = const.COORDS[city]['longitude']
-    else:
-        # Default to Toronto
-        account_handles = const.ACCOUNTS.get('toronto')
-        latitude = const.COORDS['toronto']['latitude']
-        longitude = const.COORDS['toronto']['longitude']
-    accounts = get_accounts(account_handles)
-    return render_template('nocturne.html',
-        city=city, latitude=latitude, longitude=longitude)
-
-
-@app.route(API_BASE_URL + 'locations', methods=['GET'])
-def get_locations():
+    city = request.args.get('city')
+    accounts = get_accounts(const.ACCOUNTS.get(city))
     response = list()
     posts = list()
 
