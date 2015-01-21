@@ -60,6 +60,11 @@ $(function() {
   //    .getCurrentPosition(geoSuccess, geoError, geoOptions);
   // }
 
+  var cityName = $map.data('city');
+  $("#city-selector option").filter(function() {
+    return $(this).val() === cityName;
+  }).prop('selected', true);
+
   $(document).on("click", function(e) {
     var $el = $(e.target);
 

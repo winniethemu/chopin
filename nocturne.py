@@ -123,7 +123,7 @@ def index():
         longitude = const.COORDS['toronto']['longitude']
     accounts = get_accounts(account_handles)
     return render_template('nocturne.html',
-        latitude=latitude, longitude=longitude)
+        city=city, latitude=latitude, longitude=longitude)
 
 
 @app.route(API_BASE_URL + 'locations', methods=['GET'])

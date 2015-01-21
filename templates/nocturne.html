@@ -10,7 +10,13 @@
   </head>
 
   <body>
-    <div id="map" data-latitude="{{ latitude }}" data-longitude="{{ longitude }}"></div>
+    <div id="map" data-city="{{ city }}" data-latitude="{{ latitude }}" data-longitude="{{ longitude }}"></div>
+    <select id="city-selector">
+      <option value="new_york">New York</option>
+      <option value="san_francisco">San Francisco</option>
+      <option value="toronto">Toronto</option>
+      <option value="vancouver">Vancouver</option>
+    </select>
     <div id="tip-north" class="tip-wrapper horizontal overlay">
       <div>
         <span class="tip-count"></span>
@@ -49,7 +55,7 @@
     </div>
     <div id="logo-wrapper">
       <h1>Nocturne</h1>
-      <p>A humble attempt at answering the<br /> age-old question: What's for dinner?</p>
+      <p>A restaurant discovery app that<br />maps recently popular locations on Instagram.</p>
     </div>
     <div id="meta-info">
       <p id="author">Created by <a href="http://instagram.com/yemutex">Mu Ye</a> in Toronto</p> |
