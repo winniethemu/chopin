@@ -12,24 +12,24 @@ know what accounts to follow in which cities. That's why I started with only
 four: New York, San Francisco, Toronto, and Vancouver. **Help me** make Nocturne
 better by suggesting your favorite accounts on Instagram!
 
-A few things to check before making a suggestion:
+A few things to keep in mind before making a suggestion though:
 * The user should take quality photos (and focus on food)
 * The user primarily take their photos in one city
-* The photos usually have a location associated with them (and preferrably not always the same location)
+* The photos usually have a location associated with them
 
 The following is a list of cities currently supported with their corresponding Instagram accounts:
 
 | City | Account
-| ____ | _______
-| New York | @new_fork_city, @bestfoodny, @eatingnyc
-| San Francisco | @eatdrinksf, @breakfastinsf, @eatingthroughsf
-| Toronto | @to_finest, @tastetoronto, @tofoodies
-| Vancouver | @nomnomyvr, @yvreats, @bitesofvancouver
+| ---- | -------
+| New York | [@new_fork_city](http://instagram.com/new_fork_city/), [@bestfoodny](http://instagram.com/bestfoodny/), [@eatingnyc](http://instagram.com/eatingnyc/)
+| San Francisco | [@eatdrinksf](http://instagram.com/eatdrinksf/), [@breakfastinsf](http://instagram.com/breakfastinsf/), [@eatingthroughsf](http://instagram.com/eatingthroughsf/)
+| Toronto | [@to_finest](http://instagram.com/to_finest/), [@tastetoronto](http://instagram.com/tastetoronto/), [@tofoodies](http://instagram.com/tofoodies/)
+| Vancouver | [@nomnomyvr](http://instagram.com/nomnomyvr/), [@yvreats](http://instagram.com/yvreats/), [@bitesofvancouver](http://instagram.com/bitesofvancouver/)
 
 
 ### Feedback
 
-I'm @yemutex on Twitter and Instagram. Any feedback is appreciated.
+I'm [@yemutex](https://twitter.com/yemutex) on Twitter and Instagram. Any feedback is appreciated.
 
 ### License
 
