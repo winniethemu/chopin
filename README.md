@@ -13,7 +13,7 @@ four: New York, San Francisco, Toronto, and Vancouver. **Help me** make Nocturne
 better by suggesting your favorite accounts on Instagram!
 
 A few things to keep in mind before making a suggestion though:
-* The user should take quality photos (and focus on food)
+* The user should take quality photos (that focus on food)
 * The user primarily take their photos in one city
 * The photos usually have a location associated with them
 
