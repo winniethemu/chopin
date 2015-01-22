@@ -14,13 +14,9 @@ $(function() {
   var cityName = $map.data('city');
   var map = L.map("map").setView(currentCity, 14);
   var detailsTmpl = doT.template($("#details").html());
+  var markers = [];
   var latitudes = [];
   var longitudes = [];
-  var geoOptions = {
-    // enableHighAccuracy: true,
-    maxAge: 5 * 60 * 1000,
-    timeout: 10 * 1000
-  };
 
   L.Icon.Default.imagePath = "images";
   L.tileLayer(
@@ -45,8 +41,10 @@ $(function() {
           link: locationInfo.link,
           name: locationInfo.name,
           recent_posts: locationInfo.recent_posts
-        }).addTo(map);
+        });
 
+        markers.push(pin);
+        map.addLayer(pin);
         latitudes.push(locationInfo.latitude);
         longitudes.push(locationInfo.longitude);
         pin.on("click", showLocationDetails);
@@ -56,15 +54,21 @@ $(function() {
     }
   });
 
-  // if (navigator.geolocation) {
-  //   navigator
-  //    .geolocation
-  //    .getCurrentPosition(geoSuccess, geoError, geoOptions);
-  // }
-
   $("#city-selector option").filter(function() {
     return $(this).val() === cityName;
   }).prop('selected', true);
+
+  $('#city-selector').on("change", function() {
+    // Clear old markers
+    latitudes = [];
+    longitudes = [];
+    for (var i = 0; i < markers.length; i++) {
+      map.removeLayer(markers[i]);
+    }
+
+    map.setView(['40.7300', '-74.0000'], 14);
+    // Get new locations
+  });
 
   $(document).on("click", function(e) {
     var $el = $(e.target);
@@ -75,20 +79,6 @@ $(function() {
   });
 
   map.on("moveend", showOutOfBoundsTips);
-
-  function geoSuccess(position) {
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
-  };
-
-  function geoError(position) {
-    console.log("Error occurred. Error code: " + error.code);
-    // error.code can be:
-    //   0: unknown error
-    //   1: permission denied
-    //   2: position unavailable (error response from location provider)
-    //   3: timed out
-  };
 
   function showLocationDetails(e) {
     var data = e.target.options;
