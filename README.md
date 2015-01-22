@@ -19,8 +19,8 @@ A few things to keep in mind before making a suggestion though:
 
 The following is a list of cities currently supported with their corresponding Instagram accounts:
 
-| City | Account
-| ---- | -------
+| City | Accounts
+| ---- | --------
 | New York | [@new_fork_city](http://instagram.com/new_fork_city/), [@bestfoodny](http://instagram.com/bestfoodny/), [@eatingnyc](http://instagram.com/eatingnyc/)
 | San Francisco | [@eatdrinksf](http://instagram.com/eatdrinksf/), [@breakfastinsf](http://instagram.com/breakfastinsf/), [@eatingthroughsf](http://instagram.com/eatingthroughsf/)
 | Toronto | [@to_finest](http://instagram.com/to_finest/), [@tastetoronto](http://instagram.com/tastetoronto/), [@tofoodies](http://instagram.com/tofoodies/)
