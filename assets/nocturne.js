@@ -9,10 +9,7 @@ var NocturneMarker = L.Marker.extend({
 });
 
 $(function() {
-  var $map = $("#map");
-  var currentCity = [$map.data("latitude"), $map.data("longitude")];
-  var cityName = $map.data('city');
-  var map = L.map("map").setView(currentCity, 14);
+  var map = L.map("map");
   var detailsTmpl = doT.template($("#details").html());
   var markers = [];
   var latitudes = [];
@@ -24,50 +21,15 @@ $(function() {
     attribution: '<a href="http://www.mapbox.com/about/maps/" ' +
                  'target="_blank">Terms &amp; Feedback</a>'
   }).addTo(map);
-
-  $.ajax({
-    url: "api/v1/locations",
-    data: 'city=' + cityName,
-    success: function(response) {
-      for (var i = 0; i < response.data.length; i++) {
-        var locationInfo = response.data[i];
-
-        var pin = new NocturneMarker(
-            [locationInfo.latitude, locationInfo.longitude], {
-          author: locationInfo.author,
-          caption: locationInfo.caption,
-          image_url: locationInfo.image_url,
-          like_count: locationInfo.like_count,
-          link: locationInfo.link,
-          name: locationInfo.name,
-          recent_posts: locationInfo.recent_posts
-        });
-
-        markers.push(pin);
-        map.addLayer(pin);
-        latitudes.push(locationInfo.latitude);
-        longitudes.push(locationInfo.longitude);
-        pin.on("click", showLocationDetails);
-      }
-
-      showOutOfBoundsTips();
-    }
-  });
+  render();
 
   $("#city-selector option").filter(function() {
-    return $(this).val() === cityName;
+    return $(this).val() === $("#map").data("city");
   }).prop('selected', true);
 
   $('#city-selector').on("change", function() {
-    // Clear old markers
-    latitudes = [];
-    longitudes = [];
-    for (var i = 0; i < markers.length; i++) {
-      map.removeLayer(markers[i]);
-    }
-
-    map.setView(['40.7300', '-74.0000'], 14);
-    // Get new locations
+    $("#map").data("city", $(this).val());
+    render();
   });
 
   $(document).on("click", function(e) {
@@ -79,6 +41,55 @@ $(function() {
   });
 
   map.on("moveend", showOutOfBoundsTips);
+
+  function render() {
+    var city = $("#map").data("city");
+    var lat = COORDS[city].latitude;
+    var lng = COORDS[city].longitude;
+
+    // Clear old markers
+    latitudes = [];
+    longitudes = [];
+    for (var i = 0; i < markers.length; i++) {
+      map.removeLayer(markers[i]);
+    }
+    // Set new city view
+    map.setView([lat, lng], DEFAULT_ZOOM);
+    // Get new markers
+    getLocations(city);
+  }
+
+  function getLocations(city) {
+    markers = [];
+    $.ajax({
+      url: "api/v1/locations",
+      data: 'city=' + city,
+      success: function(response) {
+        for (var i = 0; i < response.data.length; i++) {
+          var locationInfo = response.data[i];
+
+          var pin = new NocturneMarker(
+              [locationInfo.latitude, locationInfo.longitude], {
+            author: locationInfo.author,
+            caption: locationInfo.caption,
+            image_url: locationInfo.image_url,
+            like_count: locationInfo.like_count,
+            link: locationInfo.link,
+            name: locationInfo.name,
+            recent_posts: locationInfo.recent_posts
+          });
+
+          markers.push(pin);
+          map.addLayer(pin);
+          latitudes.push(locationInfo.latitude);
+          longitudes.push(locationInfo.longitude);
+          pin.on("click", showLocationDetails);
+        }
+
+        showOutOfBoundsTips();
+      }
+    });
+  }
 
   function showLocationDetails(e) {
     var data = e.target.options;

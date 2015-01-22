@@ -51,6 +51,7 @@ env.register(
         'leaflet/dist/leaflet.js',
         'doT/doT.min.js',
         'dot_settings.js',
+        'const.js',
         'nocturne.js',
         output='script.js',
     ),
@@ -98,15 +99,9 @@ def index():
 
     ip_address = request.remote_addr
     home = get_city(ip_address)
-    if const.ACCOUNTS.get(home):
-        latitude = const.COORDS[home]['latitude']
-        longitude = const.COORDS[home]['longitude']
-    else:
-        # Default to Toronto
-        latitude = const.COORDS['toronto']['latitude']
-        longitude = const.COORDS['toronto']['longitude']
-    return render_template('nocturne.html',
-        city=home, latitude=latitude, longitude=longitude)
+    if not const.ACCOUNTS.get(home):
+        home = 'toronto'
+    return render_template('nocturne.html', city=home)
 
 
 @app.route(API_BASE_URL + 'locations', methods=['GET'])
