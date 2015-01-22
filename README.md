@@ -25,7 +25,7 @@ The following is a list of cities currently supported with their corresponding I
 | San Francisco | [@eatdrinksf](http://instagram.com/eatdrinksf/), [@breakfastinsf](http://instagram.com/breakfastinsf/), [@eatingthroughsf](http://instagram.com/eatingthroughsf/)
 | Toronto | [@to_finest](http://instagram.com/to_finest/), [@tastetoronto](http://instagram.com/tastetoronto/), [@tofoodies](http://instagram.com/tofoodies/)
 | Vancouver | [@nomnomyvr](http://instagram.com/nomnomyvr/), [@yvreats](http://instagram.com/yvreats/), [@bitesofvancouver](http://instagram.com/bitesofvancouver/)
-| ?? | Help me fill the blank
+| ?? | Help me fill the blank, thanks.
 
 
 ### Feedback
