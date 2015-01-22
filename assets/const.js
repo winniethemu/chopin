@@ -8,7 +8,7 @@ var COORDS = {
   san_francisco: { latitude: '37.7833', longitude: '-122.4167' },
   seattle: { latitude: '47.6097', longitude: '-122.3331' },
   toronto: { latitude: '43.6500', longitude: '-79.4000' },
-  vancouver: { latitude: '49.2500', longitude: '-123.1000' },
+  vancouver: { latitude: '49.2650', longitude: '-123.1100' },
 };
 
 var DEFAULT_ZOOM = 14;
