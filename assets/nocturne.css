@@ -83,8 +83,24 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
-#logo-wrapper h1 {
+#logo-wrapper header:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+#logo-wrapper header h1 {
   font-size: 36px;
+  float: left;
+}
+
+#logo-wrapper header .fb-like {
+  margin: 10px 20px;
+  float: left;
+}
+
+#logo-wrapper header .twitter-share-button {
+  margin: 10px 0;
 }
 
 #logo-wrapper p {
