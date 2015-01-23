@@ -80,13 +80,6 @@ def index():
         # Use hostip.info as our IP lookup API
         url = 'http://api.hostip.info/get_json.php?position=true&ip={}'.format(
             ip_address)
-
-        # NYC
-        # url = 'http://api.hostip.info/get_json.php?position=true&ip=67.221.255.55'
-
-        # Richmond Hill
-        # url = 'http://api.hostip.info/get_json.php?position=true&ip=99.247.0.170'
-
         response = urllib.urlopen(url)
         data = json.loads(response.read())
         city = data.get('city')
