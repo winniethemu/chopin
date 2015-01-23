@@ -7,7 +7,7 @@ Instagram, and visualizes them on a map.
 
 ### Supported Cities
 
-Ideally Nocturne would support major cities around the world, however, I don't
+Ideally Nocturne will support major cities around the world, however, I don't
 know what accounts to follow in which cities. That's why I started with only
 four: New York, San Francisco, Toronto, and Vancouver. **Help me** make Nocturne
 better by suggesting your favorite accounts on Instagram!
