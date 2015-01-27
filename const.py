@@ -7,6 +7,6 @@ ACCOUNTS = {
     'ottawa': (),
     'san_francisco': ('eatdrinksf', 'breakfastinsf', 'eatingthroughsf'),
     'seattle': (),
-    'toronto': ('to_finest', 'tastetoronto', 'tofoodies'),
+    'toronto': ('to_finest', 'tastetoronto', 'chewtoronto', 'tofoodies'),
     'vancouver': ('nomnomyvr', 'yvreats', 'bitesofvancouver'),
 }
